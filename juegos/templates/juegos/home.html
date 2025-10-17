@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Juegos</title>
+    <style>
+        body { font-family: sans-serif; max-width: 1000px; margin: 40px auto; color: #333; background-color: #f8f9fa; }
+        nav { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 30px; }
+        nav h1 a { color: #333; text-decoration: none; }
+        .main-container { display: flex; gap: 30px; }
+        .sidebar { flex: 0 0 200px; background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+        .sidebar h3 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li a { display: block; padding: 8px 12px; border-radius: 6px; text-decoration: none; color: #007bff; font-weight: bold; }
+        .sidebar li a:hover { background-color: #e9ecef; }
+        .content-area { flex: 1; }
+        .content-area h2 { margin-top: 0; }
+        .grid-productos { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 30px; }
+        .producto-card { background-color: white; border: 1px solid #ddd; padding: 15px; text-align: center; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); transition: transform 0.2s, box-shadow 0.2s; }
+        .producto-card:hover { transform: translateY(-5px); box-shadow: 0 6px 12px rgba(0, 0, 0, 0.1); }
+        .producto-card img { max-width: 100%; height: auto; border-radius: 6px; margin-bottom: 10px; }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'home' %}"><h1>Eva02 Tienda de juegos</h1></a>
+    </nav>
+
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <h3>Categorias</h3>
+            <ul>
+                {% for cat in categorias %}
+                <li><a href="{% url 'productos_por_categoria' cat.id %}">{{ cat.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            {% if categoria_actual %}
+                <div style="margin-bottom: 20px; padding: 15px; background-color: #e9ecef; border-radius: 8px; display: flex; justify-content: space-between; align-items: center;">
+                    <h2 style="margin: 0;">Categoría: {{ categoria_actual.nombre }}</h2>
+                    <a href="{% url 'home' %}" style="padding: 10px 15px; background-color: #007bff; color: white; border-radius: 5px; text-decoration: none; font-weight: normal;">Volver al Inicio</a>
+                </div>
+            {% else %}
+                <h2>Catalogo de juegos</h2>
+            {% endif %}
+
+            <div class="grid-productos">
+                {% for producto in productos %}
+                    <div class="producto-card">
+                        <a href="{% url 'detalle_producto' producto.id %}">
+                            {% if producto.imagen %}
+                                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+                            {% endif %}
+                            <h3>{{ producto.nombre }}</h3>
+                        </a>
+                        <p><b>Precio:</b> ${{ producto.precio }} CLP</p>
+                    </div>
+                {% endfor %}
+            </div>
+        </main>
+        
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,11 @@
+# ignora la carpeta del entorno virtual (con esto evitamos que sea suba a github la carpeta venv)
+venv/
+
+# ignora las carpetas de cache que python crea automaticamente (no se sube a github)
+__pycache__/
+
+# ignora la base de datos local (supongo yo que el profesor creara y usara su propia base de datos para crear los juegos)
+db.sqlite3
+
+# ignora las imagenes que subimos 
+media/

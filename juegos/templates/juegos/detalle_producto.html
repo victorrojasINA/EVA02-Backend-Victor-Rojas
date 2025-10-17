@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tienda de Juegos</title>
+    <style>
+        body { font-family: sans-serif; max-width: 1000px; margin: 40px auto; color: #333; background-color: #f8f9fa; }
+        nav { border-bottom: 1px solid #ddd; padding-bottom: 15px; margin-bottom: 30px; }
+        nav h1 a { color: #333; text-decoration: none; }
+        .main-container { display: flex; gap: 30px; }
+        .sidebar { flex: 0 0 200px; background-color: white; padding: 20px; border: 1px solid #ddd; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); }
+        .sidebar h3 { margin-top: 0; }
+        .sidebar ul { list-style: none; padding: 0; }
+        .sidebar li a { display: block; padding: 8px 12px; border-radius: 6px; text-decoration: none; color: #007bff; font-weight: bold; }
+        .sidebar li a:hover { background-color: #e9ecef; }
+        .content-area { flex: 1; }
+        .content-area h2 { margin-top: 0; }
+        .content-area img { max-width: 400px; border-radius: 8px; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); }
+    </style>
+</head>
+<body>
+
+    <nav>
+        <a href="{% url 'home' %}"><h1>Eva02 Tienda de juegos</h1></a>
+    </nav>
+
+    <div class="main-container">
+
+        <aside class="sidebar">
+            <h3>Categorias</h3>
+            <ul>
+                {% for cat in categorias %}
+                <li><a href="{% url 'productos_por_categoria' cat.id %}">{{ cat.nombre }}</a></li>
+                {% endfor %}
+            </ul>
+        </aside>
+
+        <main class="content-area">
+            <h2>{{ producto.nombre }}</h2>
+            <br>
+            {% if producto.imagen %}
+                <img src="{{ producto.imagen.url }}" alt="{{ producto.nombre }}">
+            {% endif %}
+
+            <h3>Descripcion</h3>
+            <p>{{ producto.descripcion }}</p>
+            <p><b>Precio:</b> ${{ producto.precio }} CLP</p>
+            <p><b>Stock disponible:</b> {{ producto.stock }} unidades</p>
+            <br>
+            <a href="{% url 'home' %}" style="font-weight: normal;">Volver al catalogo</a>
+        </main>
+        
+    </div>
+
+</body>
+</html>
