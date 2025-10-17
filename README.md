@@ -27,7 +27,9 @@ python manage.py makemigrations (si no recuerdo mal este es para cuando se añad
 python manage.py createsuperuser
 
 #Ocupamos de nombre: ES02
+
 #Email lo dejamos vacio
+
 #Contraseña: pbe-es-02 
 
 #Por que no subimos la base de datos?
